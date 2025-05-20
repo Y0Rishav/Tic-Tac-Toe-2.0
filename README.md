@@ -1,5 +1,4 @@
-# Vanishing Tic Tac Toe 🎮
-
+# Tic Tac Toe 2.0  🎮
 A creative twist on the classic Tic Tac Toe game, built using **HTML, CSS, and JavaScript**. In this version, each player can only have **3 marks on the board** at a time — once a fourth move is made, the **oldest mark disappears**, adding a fun layer of strategy!
 
 ## 🔥 Features
