@@ -378,3 +378,218 @@ h1 {
                     inset 0 0 15px var(--win-color);
     }
 }
+
+/* Winner Banner */
+.winner-banner {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: linear-gradient(135deg, #ffffff 0%, #f0f2ff 100%);
+    padding: 2rem;
+    border-radius: 20px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2), 
+                0 5px 10px rgba(78, 84, 255, 0.2),
+                0 -2px 10px rgba(255, 62, 106, 0.1);
+    text-align: center;
+    z-index: 200;
+    min-width: 300px;
+    border: 2px solid var(--win-color);
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.5s ease;
+}
+
+.winner-banner.show {
+    opacity: 1;
+    visibility: visible;
+    animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes popIn {
+    0% {
+        transform: translate(-50%, -50%) scale(0.8);
+    }
+    50% {
+        transform: translate(-50%, -50%) scale(1.1);
+    }
+    100% {
+        transform: translate(-50%, -50%) scale(1);
+    }
+}
+
+.winner-content h2 {
+    color: var(--text-color);
+    margin-bottom: 1rem;
+    font-size: 2rem;
+    font-family: 'Russo One', sans-serif;
+    text-transform: uppercase;
+}
+
+.winner-content p {
+    color: var(--text-color);
+    margin-bottom: 1.5rem;
+    font-size: 1.2rem;
+}
+
+#play-again-btn {
+    background: linear-gradient(to bottom, var(--win-color), #3ad66e);
+    color: white;
+    border: none;
+    padding: 0.8rem 2rem;
+    font-size: 1.1rem;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: bold;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    box-shadow: 0 6px 12px rgba(80, 250, 123, 0.3);
+}
+
+#play-again-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 16px rgba(80, 250, 123, 0.4);
+}
+
+#play-again-btn:active {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(80, 250, 123, 0.3);
+}
+
+
+/* Footer Styles */
+.footer {
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(78, 84, 255, 0.2);
+    color: var(--text-color);
+    font-size: 0.9rem;
+    opacity: 0.8;
+    transition: opacity 0.3s ease;
+}
+
+.footer:hover {
+    opacity: 1;
+}
+
+.footer p {
+    margin: 0;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+    .container {
+        padding: 1.5rem;
+        max-width: 95%;
+        margin: 1rem;
+    }
+    
+    h1 {
+        font-size: 2rem;
+    }
+    
+    .game-modes {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    
+    .board {
+        width: 280px;
+        height: 280px;
+        gap: 10px;
+    }
+    
+    .cell {
+        font-size: 2.5rem;
+    }
+    
+    .player-turn {
+        font-size: 1.1rem;
+    }
+    
+    #reset-btn, #play-again-btn {
+        padding: 0.6rem 1.5rem;
+        font-size: 1rem;
+    }
+    
+    .winner-banner {
+        min-width: 250px;
+        padding: 1.5rem;
+    }
+    
+    .winner-content h2 {
+        font-size: 1.5rem;
+    }
+    
+    .winner-content p {
+        font-size: 1rem;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .container {
+        padding: 1rem;
+    }
+    
+    h1 {
+        font-size: 1.8rem;
+        margin-bottom: 1rem;
+    }
+    
+    .board {
+        width: 240px;
+        height: 240px;
+        gap: 8px;
+        margin-bottom: 1.5rem;
+    }
+    
+    .cell {
+        border-radius: 8px;
+    }
+    
+    .mode-btn {
+        padding: 0.5rem 1rem;
+        font-size: 0.9rem;
+    }
+    
+    .player-turn {
+        font-size: 1rem;
+    }
+    
+    .player-turn span {
+        width: 30px;
+        height: 30px;
+        line-height: 30px;
+    }
+    
+    #reset-btn {
+        padding: 0.5rem 1.2rem;
+        font-size: 0.9rem;
+    }
+    
+    .winner-banner {
+        min-width: 220px;
+        padding: 1.2rem;
+    }
+    
+    .winner-content h2 {
+        font-size: 1.3rem;
+        margin-bottom: 0.5rem;
+    }
+    
+    .winner-content p {
+        font-size: 0.9rem;
+        margin-bottom: 1rem;
+    }
+    
+    #play-again-btn {
+        padding: 0.5rem 1.2rem;
+        font-size: 0.9rem;
+    }
+    
+    .footer {
+        margin-top: 1.5rem;
+        font-size: 0.8rem;
+    }
+}

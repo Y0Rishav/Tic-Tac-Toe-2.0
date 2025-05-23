@@ -11,6 +11,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const playFriendsBtn = document.getElementById('play-friends');
     const playComputerBtn = document.getElementById('play-computer');
     const fireworksContainer = document.getElementById('fireworks-container');
+    const winnerBanner = document.getElementById('winner-banner');
+    const winnerText = document.getElementById('winner-text');
+    const timeTaken = document.getElementById('time-taken');
+    const playAgainBtn = document.getElementById('play-again-btn');
     
     let currentPlayer = 'X';
     let gameActive = true;
@@ -21,6 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
         'O': 0
     };
     let gameMode = 'friends'; // default 
+    let gameStartTime = null;
     
     // Initialize the game
     function initGame() {
@@ -35,6 +40,10 @@ document.addEventListener('DOMContentLoaded', () => {
         gameWon = false; 
         moveHistory = [];
         playerMoves = { 'X': 0, 'O': 0 };
+        gameStartTime = Date.now();
+        
+        // Hide winner banner if visible
+        winnerBanner.classList.remove('show');
         
         updateDisplay();
         highlightOldestMove();
@@ -87,6 +96,11 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     
     function playerMove(cell) {
+        // Start timing on first move if not already started
+        if (gameStartTime === null) {
+            gameStartTime = Date.now();
+        }
+        
         if (!gameActive || cell.classList.contains('x') || cell.classList.contains('o')) return;
 
         // Don't remove any moves if the game is won
@@ -144,7 +158,27 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             });
             
+            // Calculate time taken
+            const gameEndTime = Date.now();
+            const timeTakenInSeconds = Math.floor((gameEndTime - gameStartTime) / 1000);
+            
+            // Show winner banner
+            showWinnerBanner(currentPlayer, timeTakenInSeconds);
+            
             createFireworks();
+            return;
+        }
+        
+        // Check for draw
+        if (!checkForAvailableMoves()) {
+            gameActive = false;
+            
+            // Calculate time taken
+            const gameEndTime = Date.now();
+            const timeTakenInSeconds = Math.floor((gameEndTime - gameStartTime) / 1000);
+            
+            // Show draw banner
+            showDrawBanner(timeTakenInSeconds);
             return;
         }
         
@@ -156,6 +190,31 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!gameWon) {
             highlightOldestMove();
         }
+    }
+    
+    function checkForAvailableMoves() {
+        const board = getBoardState();
+        return board.includes(null);
+    }
+    
+    function showWinnerBanner(winner, timeTakenInSeconds) {
+        let winnerMessage = '';
+        
+        if (gameMode === 'friends') {
+            winnerMessage = `Player ${winner} Wins!`;
+        } else {
+            winnerMessage = winner === 'X' ? 'You Win!' : 'Computer Wins!';
+        }
+        
+        winnerText.textContent = winnerMessage;
+        timeTaken.textContent = `Time: ${timeTakenInSeconds} seconds`;
+        winnerBanner.classList.add('show');
+    }
+    
+    function showDrawBanner(timeTakenInSeconds) {
+        winnerText.textContent = "It's a Draw!";
+        timeTaken.textContent = `Time: ${timeTakenInSeconds} seconds`;
+        winnerBanner.classList.add('show');
     }
     
     function computerMove() {
@@ -330,6 +389,9 @@ document.addEventListener('DOMContentLoaded', () => {
         playFriendsBtn.classList.remove('active');
         initGame();
     });
+    
+    // Play again button event listener
+    playAgainBtn.addEventListener('click', initGame);
     
     cells.forEach(cell => cell.addEventListener('click', handleCellClick));
     resetBtn.addEventListener('click', initGame);
